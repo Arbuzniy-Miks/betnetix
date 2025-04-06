@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunSim - Симулятор забегов для тренеров</title>
+    <meta name="description" content="Система симуляции и анализа забегов для тренеров по легкой атлетике">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%; /* Задаем высоту 100% для html и body */
+        }
+        
+        body{
+            font-family: "Orbitron", sans-serif; /* Заменяем шрифт на Orbitron */
+            font-weight: 400; 
+            color: rgb(0, 0, 0);
+            font-size: 16px; 
+            background: rgb(0, 0, 0);
+            background: linear-gradient(177deg, rgb(0, 0, 0) 29%, rgb(63, 2, 83) 85%, rgb(61, 2, 109) 100%);
+        }
+        
+        
+        .bod {
+            margin: auto;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow: auto;
+            background: linear-gradient(
+              315deg,
+           rgba(101, 0, 94, 1) 3%,
+           rgb(198, 26, 228) 68%,
+        
+            );
+            animation: gradient 15s ease infinite;
+            background-size: 400% 400%;
+            background-attachment: fixed;
+          }
+          @keyframes gradient {
+            0% {
+              background-position: 0% 0%;
+            }
+            50% {
+              background-position: 100% 100%;
+            }
+            100% {
+              background-position: 0% 0%;
+            }
+          }
+          .wave {
+            background: rgba(144, 33, 159, 0.601);
+            border-radius: 1000% 1000% 0 0;
+            position: fixed;
+            width: 200%;
+            height: 12em;
+            animation: wave 10s -3s linear infinite;
+            transform: translate3d(0, 0, 0);
+            opacity: 0.8;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+          }
+          .wave:nth-of-type(2) {
+            bottom: -1.25em;
+            animation: wave 18s linear reverse infinite;
+            opacity: 0.8;
+          }
+          .wave:nth-of-type(3) {
+            bottom: -2.5em;
+            animation: wave 20s -1s reverse infinite;
+            opacity: 0.9;
+          }
+          @keyframes wave {
+            0% {
+              transform: translateX(1);
+            }
+            30% {
+              transform: translateX(-25%);
+            }
+            50% {
+              transform: translateX(-50%);
+            }
+            70% {
+              transform: translateX(-25%);
+            }
+            100% {
+              transform: translateX(1);
+            }
+          }
+        
+        a {
+            text-decoration: none;
+        }
+        img {
+            max-width: 100%;
+            height: 525px;
+            margin-right: 200px;
+            margin-top: 100px;
+        }
+        .wrapper{
+            background: rgb(80, 24, 58);
+            background: linear-gradient(177deg, rgb(37, 1, 43) 29%, rgb(44, 1, 59) 85%, rgb(56, 2, 100) 100%);
+            width: 100%;
+            
+        }
+        
+        .container {
+            width: 1400px;
+            margin: 0 auto;
+            color: rgba(88,4,157,1);
+        }
+        
+        header {
+            padding: 50px 0;
+        }
+        
+        header .kod{
+            text-transform: uppercase;
+            font-size: 29px;
+            font-weight: 800;
+            color: rgba(88,4,157,1);
+            margin-left: 45px;
+            
+            
+        }
+        
+        header nav {
+            float:right;
+            width: 50%;
+        }
+        
+        header nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        header nav ul li {
+            display: inline-block;
+        }
+        
+        header nav ul li.active::after{
+            content: "";
+            display: block;
+            width: 40px;
+            height: 5px;
+            background: rgba(88,4,157,1);
+            border-radius: 10px;
+            position: relative;
+            top:5px;
+            left: -15px;
+            
+        }
+        
+        header nav ul li a {color: rgb(255, 255, 255) ;
+        }
+        
+        header nav ul li:not(.active):not(.bat) a:hover{
+            border-bottom: 5px solid rgba(88,4,157,1);
+        }
+        
+        header nav ul li.bat a{
+            background: rgba(88,4,157,1);
+            padding: 9px 17px;
+            border-radius:5px;
+            transition: all 530ms ease;
+            margin-right: 150px;
+        }
+        
+        header nav ul li.bat a:hover{
+            background: rgb(141, 3, 255);
+        }
+        
+        .hero {
+            padding-bottom: 100px;
+            position: relative;
+        }
+        
+        .hero--info{
+            width: 500px;
+            padding-top: 50px;
+            margin-left: 100px;
+            margin-left: 45px;
+        
+        }
+        
+        .hero--info h2{
+            color: rgb(105, 3, 189);
+            font-size: 20px;
+            font-weight: 600;
+          
+        }
+        
+        .hero--info h1 {
+            font-size: 150px;
+            font-weight: 600;
+            line-height: 120%;
+            color: rgb(255, 255, 255);
+        
+        }
+        
+        
+        .hero--info p{
+            font-weight: 400;
+            line-height: 170%;
+            margin-bottom: 50px;
+            color: rgb(105, 3, 189);
+        }
+        
+        .hero--info .btn {
+            background: rgb(255, 255, 255);
+            color: #000000;
+            border-radius: 50px;
+            padding:  15px 30px;
+            border: 0;
+            transition: all 500ms ease;
+            font-size: 17px;
+        
+        }
+        
+        .hero--info .btn:hover{
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+        
+        .hero img {
+            position: absolute;
+            top: -150px;
+            right: 0;
+        
+        }
+        
+        
+        
+        .btn {
+            background: rgba(88, 4, 157, 1);
+            color: #000000;
+            border-radius: 50px;
+            padding:  15px 30px;
+            border: 0;
+            transition: all 500ms ease;
+            font-size: 17px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 50px;
+        
+        }
+        
+        .footer-section {
+            flex: 1;
+            padding: 10px;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section p,
+        .footer-section ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        table {
+            width: 70%; 
+            max-width: 1000px;
+            margin: auto; 
+            border-top: 30px solid rgb(255, 255, 255);
+            border-collapse: collapse;
+            text-align: center;
+            margin-bottom: 50px;
+            border: 1px solid #dddddd;
+            box-shadow: 0 0 15px 10px  rgb(177, 145, 203);
+        
+        
+        }
+        
+        td, th {
+            padding: 8px; 
+            color: aliceblue;
+            padding: 10px;
+            border: 3px solid #ffffff; 
+        }
+        
+        th {
+        size: 5px;
+           }
+        
+        .Zag {
+            color: #fff;
+            margin-left: 335px ;
+        }
+        
+        .track {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background: #cc00ff;
+            border: 1px solid #ccc;
+            overflow: hidden;
+        }
+        .circle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        
+        #race-track {
+            position: relative;
+            width: 50%;
+            height: 200px;
+            border: 2px solid #500c98;
+            margin-top: 150px;
+            overflow: hidden;
+            margin-left: 400px;
+            box-shadow: 0 0 15px 10px  rgb(177, 145, 203);
+        }
+        
+        #finish-line {
+            position: absolute;
+            width: 5px;
+            height: 200px;
+            background-color: rgb(255, 0, 0);
+            right: 0;
+        }
+        
+        .runner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgb(132, 0, 255);
+            border-radius: 50%;
+            text-emphasis-color: #ccc;
+           
+        }
+        
+        .runner-label {
+            position: absolute;
+            top: -20px;
+            text-align: center;
+            width: 50px;
+        }
+        
+        .btns{
+            background: rgba(88, 4, 157, 1);
+            color: #000000;
+            border-radius: 50px;
+            padding:  15px 30px;
+            border: 0;
+            transition: all 500ms ease;
+            font-size: 17px;
+            margin-left: 400px;
+        }
+        
+        .race-track {
+            position: relative;
+            height: 400px;
+            margin: 30px 0;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: -30px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                #000000,
+                #6b0564 15px,
+                #000000 15px,
+                #6b0564 15px, 30px
+            );
+        }
+        
+        
+        .distance-marker {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .finish-line {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background-color: red;
+            z-index: 1;
+        }
+        
+        .runner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            transform: translateX(-50%);
+            transition: left 0.5s ease-out;
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .runner-info {
+            position: absolute;
+            left: 35px;
+            white-space: nowrap;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: rgb(255, 11, 11);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .runner:hover .runner-info {
+            opacity: 1;
+        }
+        
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        #time {
+            color: #feb1ff;
+        }
+        .h11{
+            margin-left: 45px;
+            color: #ffffff;
+        }
+        
+        .controls{
+            margin-left: 45px;
+        }
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e7cbfc;
+            border-radius: 8px;
+        }
+        
+        .results h2 {
+            margin-top: 0;
+            color: #000000;
+            border-bottom: 1px solid #c8a7e2;
+            padding-bottom: 10px;
+        }
+        
+        
+        .results-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .results-list li {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        
+        }</style>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="container">
+            <span class="kod">RunSim</span>
+            <nav>
+                <ul>
+                    <li class="active"><a href="http://localhost:5000/bfbf">Главная</a></li>
+                    <li><a href="http://localhost:5000/html">Вероятности</a></li>
+                    <li><a href="http://localhost:5000/diagram">Результаты</a></li>
+                    <li class="bat"><a href="#контакт">Контакты</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="hero container">
+            <div class="hero--info">
+                <h1>RunSim</h1>
+                <h2>Симулятор забегов для тренеров</h2>
+                <p>Профессиональная система симуляции и анализа забегов для тренеров по легкой атлетике</p>
+                <a href="таблица.html" class="btn">Начать работу</a>
+            </div>
+            <img src="https://i.ibb.co/RTkbsPgH/photo-5445203072113570485-x-no-bg-preview-carve-photos.png" alt="Бегун на дорожке" width="500" height="400px">
+        </main>        
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>О проекте</h4>
+                <p>Участник хакатона "Весна 2025"</p>
+            </div>
+            <div class="footer-section">
+                <h4 id="контакт">Контакты</h4>
+                <address>
+                    <p>Email: <a href="mailto:marinakusnarenko659@gmail.com">marinakusnarenko659@gmail.com</a></p>
+                    <p>Телефон: <a href="tel:+7085003667">+7 (085) 003-667</a></p>
+                </address>
+            </div>
+            <div class="footer-section">
+                <h4>Социальные сети</h4>
+                <ul>
+                    <li><a href="https://t.me/marina_vkusno" rel="noopener noreferrer">Telegram @marina_vkusno</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; Хакатон "Весна 2025". Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>DB Тестер</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f8f8f8;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    pre {
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 Тестирование таблиц БД</h1>
+
+  <button onclick="createTestData()">📥 Создать тестовые данные</button>
+  <button onclick="clearDatabase()">🧹 Очистить таблицы</button>
+
+  <pre id="output">Ожидание действия...</pre>
+
+  <script>
+    const API_URL = 'http://localhost:5000/api/test';
+
+    async function createTestData() {
+      updateOutput('⏳ Создание тестовых данных...');
+
+      try {
+        const res = await fetch(`${API_URL}/seed`, { method: 'POST' });
+        const data = await res.json();
+
+        if (data.success) {
+          updateOutput('✅ ' + data.message);
+        } else {
+          updateOutput('❌ Ошибка: ' + data.error);
+        }
+      } catch (err) {
+        updateOutput('❌ Ошибка подключения: ' + err.message);
+      }
+    }
+
+    async function clearDatabase() {
+      updateOutput('⏳ Очистка таблиц...');
+
+      try {
+        const res = await fetch(`${API_URL}/clear`, { method: 'DELETE' });
+        const data = await res.json();
+
+        if (data.success) {
+          updateOutput('✅ ' + data.message);
+        } else {
+          updateOutput('❌ Ошибка: ' + data.error);
+        }
+      } catch (err) {
+        updateOutput('❌ Ошибка подключения: ' + err.message);
+      }
+    }
+
+    function updateOutput(message) {
+      document.getElementById('output').textContent = message;
+    }
+  </script>
+</body>
+</html>

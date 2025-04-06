@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pley</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Задаем высоту 100% для html и body */
+}
+
+body{
+    font-family: "Orbitron", sans-serif; /* Заменяем шрифт на Orbitron */
+    font-weight: 400; 
+    color: rgb(0, 0, 0);
+    font-size: 16px; 
+    background: rgb(0, 0, 0);
+    background: linear-gradient(177deg, rgb(0, 0, 0) 29%, rgb(63, 2, 83) 85%, rgb(61, 2, 109) 100%);
+}
+
+
+.bod {
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background: linear-gradient(
+      315deg,
+   rgba(101, 0, 94, 1) 3%,
+   rgb(198, 26, 228) 68%,
+
+    );
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+  }
+  @keyframes gradient {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  .wave {
+    background: rgba(144, 33, 159, 0.601);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+  }
+  .wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+  }
+  .wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+  }
+  @keyframes wave {
+    0% {
+      transform: translateX(1);
+    }
+    30% {
+      transform: translateX(-25%);
+    }
+    50% {
+      transform: translateX(-50%);
+    }
+    70% {
+      transform: translateX(-25%);
+    }
+    100% {
+      transform: translateX(1);
+    }
+  }
+
+a {
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+    height: 525px;
+    margin-right: 200px;
+    margin-top: 100px;
+}
+.wrapper{
+    background: rgb(80, 24, 58);
+    background: linear-gradient(177deg, rgb(37, 1, 43) 29%, rgb(44, 1, 59) 85%, rgb(56, 2, 100) 100%);
+    width: 100%;
+    
+}
+
+.container {
+    width: 1400px;
+    margin: 0 auto;
+    color: rgba(88,4,157,1);
+}
+
+header {
+    padding: 50px 0;
+}
+
+header .kod{
+    text-transform: uppercase;
+    font-size: 29px;
+    font-weight: 800;
+    color: rgba(88,4,157,1);
+    margin-left: 45px;
+    
+    
+}
+
+header nav {
+    float:right;
+    width: 50%;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+header nav ul li {
+    display: inline-block;
+}
+
+header nav ul li.active::after{
+    content: "";
+    display: block;
+    width: 40px;
+    height: 5px;
+    background: rgba(88,4,157,1);
+    border-radius: 10px;
+    position: relative;
+    top:5px;
+    left: -15px;
+    
+}
+
+header nav ul li a {color: rgb(255, 255, 255) ;
+}
+
+header nav ul li:not(.active):not(.bat) a:hover{
+    border-bottom: 5px solid rgba(88,4,157,1);
+}
+
+header nav ul li.bat a{
+    background: rgba(88,4,157,1);
+    padding: 9px 17px;
+    border-radius:5px;
+    transition: all 530ms ease;
+    margin-right: 150px;
+}
+
+header nav ul li.bat a:hover{
+    background: rgb(141, 3, 255);
+}
+
+.hero {
+    padding-bottom: 100px;
+    position: relative;
+}
+
+.hero--info{
+    width: 500px;
+    padding-top: 50px;
+    margin-left: 100px;
+    margin-left: 45px;
+
+}
+
+.hero--info h2{
+    color: rgb(105, 3, 189);
+    font-size: 20px;
+    font-weight: 600;
+  
+}
+
+.hero--info h1 {
+    font-size: 150px;
+    font-weight: 600;
+    line-height: 120%;
+    color: rgb(255, 255, 255);
+
+}
+
+
+.hero--info p{
+    font-weight: 400;
+    line-height: 170%;
+    margin-bottom: 50px;
+    color: rgb(105, 3, 189);
+}
+
+.hero--info .btn {
+    background: rgb(255, 255, 255);
+    color: #000000;
+    border-radius: 50px;
+    padding:  15px 30px;
+    border: 0;
+    transition: all 500ms ease;
+    font-size: 17px;
+
+}
+
+.hero--info .btn:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.hero img {
+    position: absolute;
+    top: -150px;
+    right: 0;
+
+}
+
+
+
+.btn {
+    background: rgba(88, 4, 157, 1);
+    color: #000000;
+    border-radius: 50px;
+    padding:  15px 30px;
+    border: 0;
+    transition: all 500ms ease;
+    font-size: 17px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 15px 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 50px;
+
+}
+
+.footer-section {
+    flex: 1;
+    padding: 10px;
+}
+
+.footer-section h4 {
+    margin-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.footer-section a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+}
+
+table {
+    width: 70%; 
+    max-width: 1000px;
+    margin: auto; 
+    border-top: 30px solid rgb(255, 255, 255);
+    border-collapse: collapse;
+    text-align: center;
+    margin-bottom: 50px;
+    border: 1px solid #dddddd;
+    box-shadow: 0 0 15px 10px  rgb(177, 145, 203);
+
+
+}
+
+td, th {
+    padding: 8px; 
+    color: aliceblue;
+    padding: 10px;
+    border: 3px solid #ffffff; 
+}
+
+th {
+size: 5px;
+   }
+
+.Zag {
+    color: #fff;
+    margin-left: 335px ;
+}
+
+.track {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: #cc00ff;
+    border: 1px solid #ccc;
+    overflow: hidden;
+}
+.circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+#race-track {
+    position: relative;
+    width: 50%;
+    height: 200px;
+    border: 2px solid #500c98;
+    margin-top: 150px;
+    overflow: hidden;
+    margin-left: 400px;
+    box-shadow: 0 0 15px 10px  rgb(177, 145, 203);
+}
+
+#finish-line {
+    position: absolute;
+    width: 5px;
+    height: 200px;
+    background-color: rgb(255, 0, 0);
+    right: 0;
+}
+
+.runner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(132, 0, 255);
+    border-radius: 50%;
+    text-emphasis-color: #ccc;
+   
+}
+
+.runner-label {
+    position: absolute;
+    top: -20px;
+    text-align: center;
+    width: 50px;
+}
+
+.btns{
+    background: rgba(88, 4, 157, 1);
+    color: #000000;
+    border-radius: 50px;
+    padding:  15px 30px;
+    border: 0;
+    transition: all 500ms ease;
+    font-size: 17px;
+    margin-left: 400px;
+}
+
+.race-track {
+    position: relative;
+    height: 400px;
+    margin: 30px 0;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: -30px;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        #000000,
+        #6b0564 15px,
+        #000000 15px,
+        #6b0564 15px, 30px
+    );
+}
+
+
+.distance-marker {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.finish-line {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background-color: red;
+    z-index: 1;
+}
+
+.runner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    transform: translateX(-50%);
+    transition: left 0.5s ease-out;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.runner-info {
+    position: absolute;
+    left: 35px;
+    white-space: nowrap;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: rgb(255, 11, 11);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.runner:hover .runner-info {
+    opacity: 1;
+}
+
+.timer {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#time {
+    color: #feb1ff;
+}
+.h11{
+    margin-left: 45px;
+    color: #ffffff;
+}
+
+.controls{
+    margin-left: 45px;
+}
+.results {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #e7cbfc;
+    border-radius: 8px;
+}
+
+.results h2 {
+    margin-top: 0;
+    color: #000000;
+    border-bottom: 1px solid #c8a7e2;
+    padding-bottom: 10px;
+}
+
+
+.results-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.results-list li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+
+}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="container">
+            <span class="kod">Undefined</span>
+            <nav>
+                <ul>
+                    <li class="active"><a href="http://localhost:5000/bfbf">Главная</a></li>
+                    <li><a href="http://localhost:5000/html">Вероятности</a></li>
+                    <li><a href="http://localhost:5000/diagram">Результаты</a></li>
+                    <li class="bat"><a href="#контакт">Контакты</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container">
+            <h1 class="h11">Симулятор забега на 100 метров</h1><br>
+            
+            <table id="runnersTable">
+                <thead>
+                    <tr>
+                        <th>Ученик</th>
+                        <th>Время реакции (с)</th>
+                        <th>Ускорение (м/с²)</th>
+                        <th>Макс. скорость (м/с)</th>
+                        <th>Потери скорости</th>
+                        <th>Цвет</th>
+                    </tr>
+                </thead>
+                <tbody id="runnersTableBody">
+                    <!-- Данные будут добавлены через JS -->
+                </tbody>
+            </table>
+                
+            
+            <div class="controls">
+                <button id="generateBtn" class="btn">Сгенерировать данные</button>
+                <button id="startBtn" class="btn">Начать забег</button>
+                <button id="resetBtn" class="btn">Сбросить</button>
+            </div>
+            
+            <div class="timer">Время: <span id="time">0.00</span> сек</div>
+            
+            <div class="race-track">
+                <div class="track"></div>
+                <!-- Маркеры дистанции -->
+                <div class="distance-marker" style="left: 10%"><div class="distance-label">10м</div></div>
+                <div class="distance-marker" style="left: 20%"><div class="distance-label">20м</div></div>
+                <div class="distance-marker" style="left: 30%"><div class="distance-label">30м</div></div>
+                <div class="distance-marker" style="left: 40%"><div class="distance-label">40м</div></div>
+                <div class="distance-marker" style="left: 50%"><div class="distance-label">50м</div></div>
+                <div class="distance-marker" style="left: 60%"><div class="distance-label">60м</div></div>
+                <div class="distance-marker" style="left: 70%"><div class="distance-label">70м</div></div>
+                <div class="distance-marker" style="left: 80%"><div class="distance-label">80м</div></div>
+                <div class="distance-marker" style="left: 90%"><div class="distance-label">90м</div></div>
+                <div class="finish-line"></div>
+                <div id="runners"></div>
+            </div>
+            
+            <div class="results">
+                <h2>Результаты</h2>
+                <ol class="results-list" id="resultsList"></ol>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            // Глобальные переменные
+            let runners = [];
+            let raceInterval;
+            let startTime;
+            let raceInProgress = false;
+            let finishedRunners = [];
+            const trackLength = 100; // метров
+            let socket;
+    
+            // DOM элементы
+            const generateBtn = document.getElementById('generateBtn');
+            const startBtn = document.getElementById('startBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const timeDisplay = document.getElementById('time');
+            const runnersTableBody = document.getElementById('runnersTableBody');
+            const runnersContainer = document.getElementById('runners');
+            const resultsList = document.getElementById('resultsList');
+    
+            // Подключение к серверу Socket.IO
+            function connectToServer() {
+                socket = io();
+                
+                socket.on('connect', () => {
+                    console.log('Connected to server');
+                });
+                
+                socket.on('disconnect', () => {
+                    console.log('Disconnected from server');
+                });
+                
+                // Обработчик получения новых данных о бегунах
+                socket.on('runnerData', (data) => {
+                    runners = data;
+                    updateTable();
+                    createRunners();
+                    
+                    // Активируем кнопки после получения данных
+                    startBtn.disabled = false;
+                    resetBtn.disabled = false;
+                });
+                
+                socket.on('error', (error) => {
+                    console.error('Socket.IO error:', error);
+                });
+            }
+    
+            // Функция для генерации данных о бегунах
+            function generateRunnerData() {
+                if (socket && socket.connected) {
+                    // Отправляем запрос на сервер для генерации новых данных
+                    socket.emit('requestRunnerData');
+                } else {
+        const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'];
+        const newRunners = [];
+        
+        for (let i = 1; i <= 6; i++) {
+            // Генерируем ускорение от 3 до 7 м/с²
+            const acceleration = (Math.random() * 4 + 3).toFixed(2);
+            
+            // Генерируем максимальную скорость от ускорения до 10 м/с
+            // Убеждаемся, что maxSpeed >= acceleration
+            const maxSpeed = Math.max(
+                parseFloat(acceleration),
+                (Math.random() * (10 - parseFloat(acceleration)) + parseFloat(acceleration)
+            ).toFixed(2));
+            
+            newRunners.push({
+                id: i,
+                name: `Ученик ${i}`,
+                reactionTime: (Math.random() * 0.2 + 0.1).toFixed(2),
+                acceleration: acceleration,
+                maxSpeed: maxSpeed,
+                speedLoss: (Math.random() * 0.3 + 0.1).toFixed(2),
+                color: colors[i-1]
+            });
+        }
+        
+        runners = newRunners;
+        updateTable();
+        createRunners();
+        
+        startBtn.disabled = false;
+        resetBtn.disabled = false;
+    }
+}
+            // Функция для обновления таблицы
+            function updateTable() {
+                runnersTableBody.innerHTML = '';
+                
+                runners.forEach(runner => {
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${runner.name}</td>
+                        <td>${runner.reactionTime}</td>
+                        <td>${runner.acceleration}</td>
+                        <td>${runner.maxSpeed}</td>
+                        <td>${runner.speedLoss}</td>
+                        <td style="background-color: ${runner.color}"></td>
+                    `;
+                    
+                    runnersTableBody.appendChild(row);
+                });
+            }
+    
+            // Функция для создания бегунов на треке
+            function createRunners() {
+                runnersContainer.innerHTML = '';
+                
+                runners.forEach((runner, index) => {
+                    const runnerElement = document.createElement('div');
+                    runnerElement.className = 'runner';
+                    runnerElement.id = `runner-${runner.id}`;
+                    runnerElement.style.backgroundColor = runner.color;
+                    runnerElement.style.left = '0%';
+                    runnerElement.style.top = `${(index + 1) * 40}px`;
+                    
+                    runnersContainer.appendChild(runnerElement);
+                    
+                    // Сбрасываем данные о позиции
+                    runner.position = 0;
+                    runner.speed = 0;
+                    runner.finished = false;
+                    runner.finishTime = null;
+                    runner.started = false;
+                });
+            }
+    
+            // Функция для начала забега
+            function startRace() {
+                if (raceInProgress) return;
+                
+                raceInProgress = true;
+                finishedRunners = [];
+                startTime = Date.now();
+                
+                startBtn.disabled = true;
+                generateBtn.disabled = true;
+                
+                // Запускаем интервал для анимации
+                raceInterval = setInterval(updateRace, 40); // 25 FPS
+            }
+    
+            // Функция для обновления состояния забега
+            function updateRace() {
+                const currentTime = (Date.now() - startTime) / 1000;
+                timeDisplay.textContent = currentTime.toFixed(2);
+                
+                let allFinished = true;
+                
+                runners.forEach(runner => {
+                    if (!runner.started && currentTime >= parseFloat(runner.reactionTime)) {
+                        runner.started = true;
+                        runner.startTime = currentTime;
+                    }
+                    
+                    if (!runner.finished && runner.started) {
+                        const runningTime = currentTime - runner.startTime;
+                        
+                        runner.speed = Math.min(
+                            parseFloat(runner.acceleration) * runningTime,
+                            parseFloat(runner.maxSpeed)
+                        );
+                        
+                        if (runner.position > 60) {
+                            runner.speed -= parseFloat(runner.speedLoss) * (runner.position - 60) / 40;
+                        }
+                        
+                        runner.speed = Math.max(0, runner.speed);
+                        runner.position += runner.speed * 0.04;
+                        
+                        if (runner.position >= trackLength) {
+                            runner.position = trackLength;
+                            runner.finished = true;
+                            runner.finishTime = currentTime;
+                            finishedRunners.push({
+                                name: runner.name,
+                                time: runner.finishTime,
+                                color: runner.color
+                            });
+                        }
+                        
+                        const runnerElement = document.getElementById(`runner-${runner.id}`);
+                        if (runnerElement) {
+                            runnerElement.style.left = `${(runner.position / trackLength) * 100}%`;
+                        }
+                    }
+                    
+                    if (!runner.finished) {
+                        allFinished = false;
+                    }
+                });
+                
+                if (allFinished) {
+                    endRace();
+                }
+            }
+    
+            // Функция для завершения забега
+            function endRace() {
+                clearInterval(raceInterval);
+                raceInProgress = false;
+                
+                generateBtn.disabled = false;
+                resetBtn.disabled = false;
+                
+                finishedRunners.sort((a, b) => a.time - b.time);
+                
+                resultsList.innerHTML = '';
+                finishedRunners.forEach((runner, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<span style="color: ${runner.color}">${runner.name}</span>: ${runner.time.toFixed(2)} с`;
+                    resultsList.appendChild(listItem);
+                });
+                
+                if (socket && socket.connected) {
+                    socket.emit('raceResults', finishedRunners);
+                }
+            }
+    
+            // Функция для сброса забега
+            function resetRace() {
+                clearInterval(raceInterval);
+                raceInProgress = false;
+                
+                timeDisplay.textContent = '0.00';
+                createRunners();
+                
+                startBtn.disabled = false;
+                generateBtn.disabled = false;
+                resultsList.innerHTML = '';
+            }
+    
+            // Обработчики событий
+            generateBtn.addEventListener('click', generateRunnerData);
+            startBtn.addEventListener('click', startRace);
+            resetBtn.addEventListener('click', resetRace);
+    
+            // Инициализация при загрузке страницы
+            document.addEventListener('DOMContentLoaded', () => {
+                connectToServer();
+                generateRunnerData(); // Генерируем начальные данные
+                
+                // Деактивируем кнопки до генерации данных
+                startBtn.disabled = true;
+                resetBtn.disabled = true;
+            });
+        </script>
+    </div>
+</body>
+</html>
